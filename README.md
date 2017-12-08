@@ -2,6 +2,8 @@
 
 <p align="center">
     <a href="https://discord.gg/ccpgH3b"><img src="https://img.shields.io/badge/Discord-Join%20Server-7289DA.svg" /></a>
+    <img src="https://img.shields.io/github/languages/code-size/julianYaman/bitcoinPriceApp_python.svg" alt="Code Size" />
+    <img src="https://img.shields.io/github/languages/top/julianYaman/bitcoinPriceApp_python.svg" alt="Top Language"/>
 </p>
 
 ## Installation:
@@ -14,7 +16,9 @@ Run ``python getprice.py`` to start the project.
 
 ## Description
 
-This is a python application, where you can see as an output the current price of one Bitcoin.
+With this python application, you can check the price of one Bitcoin (currently you get the result in a console output).
+
+At the moment, I use the **[BitPay API](https://bitpay.com/api/rates/usd)** for getting the current price in US Dollar.
 
 **Note from the developer of the main repository (delete it when you fork it):**
 
