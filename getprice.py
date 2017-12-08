@@ -1,6 +1,11 @@
 import requests
 
-request = requests.get("https://bitpay.com/api/rates/usd")
-request = request.json()
+startAppInput = input('Do you want to start the app? (y/n) ')
 
-print(f'Current price of one Bitcoin is at: {request["rate"]:.2f}$')
+if startAppInput == "y":
+    request = requests.get("https://bitpay.com/api/rates/usd")
+    request = request.json()
+
+    print(f'Current price of one Bitcoin is at: {request["rate"]:.2f}$')
+else:
+    exit(0)
