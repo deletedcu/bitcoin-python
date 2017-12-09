@@ -4,8 +4,12 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
+
 install:
   - ./install.sh
+
+cache: pip
+
 script:
-  - "python getprice.py < test.txt"
+  - "pytest"
 

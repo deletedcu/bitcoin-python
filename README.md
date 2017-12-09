@@ -9,12 +9,25 @@
 </p>
 
 ## Installation:
-First, you must install the library **requests**.
+To install all dependencies which are required for this project, run:
 
-Do that with ``pipenv install requests``.
+the **Bash script**
+
+```
+> install.sh
+```
+
+or with **pip**:
+
+```
+> pip install -r requirements.txt
+```
 
 ## Usage:
 Run ``python getprice.py`` to start the project.
+
+If you are going to add new functions, add them to **test_class.py** and
+run ``pytest`` for testing everything and don´t forget to **import** every function in the file.
 
 ## Description
 
