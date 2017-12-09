@@ -1,7 +1,7 @@
 <h1 align="center">Bitcoin Price Application (with Python)</h1>
 
 <p align="center">
-    <img src="https://img.shields.io/github/last-commit/julianYaman/bitcoinPriceApp_python.svg">
+    <a href="https://travis-ci.org/julianYaman/bitcoinPriceApp_python"><img src="https://travis-ci.org/julianYaman/bitcoinPriceApp_python.svg?branch=master"></a>
     <img src="https://img.shields.io/badge/language-python-blue.svg" />
     <a href="https://discord.gg/ccpgH3b"><img src="https://discordapp.com/api/guilds/358751806697897984/embed.png" /></a>
     <a href="https://twitter.com/intent/user?screen_name=julianYaman"><img src="https://img.shields.io/twitter/follow/julianyaman.svg?style=social&label=Follow" /></a>
