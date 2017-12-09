@@ -3,3 +3,9 @@
 
 # Lock files
 Pipfile.lock
+
+# PyCache
+__pycache__/
+
+# Currently unnecessary files
+before.sh

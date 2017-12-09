@@ -4,10 +4,8 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
-before_install:
-  - ./install.sh
 install:
-  - "pipenv install requests"
+  - ./install.sh
 script:
   - "python getprice.py < test.txt"
 

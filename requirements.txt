@@ -1,0 +1,3 @@
+Flask==0.12.2
+pipenv==9.0.0
+requests==2.18.4

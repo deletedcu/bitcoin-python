@@ -1,2 +1,2 @@
 #!/bin/sh
-pip install pipenv
+pip install -r requirements.txt
