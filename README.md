@@ -24,10 +24,19 @@ or with **pip**:
 ```
 
 ## Usage:
-Run ``python getprice.py`` to start the project.
+**To run the project type:**
 
-If you are going to add new functions, add them to **test_class.py** and
-run ``pytest`` for testing everything and don´t forget to **import** every function in the file.
+```
+> python getproce
+```
+
+<hr>
+
+If you are going to add new functions, add them to **test_class.py** and run 
+```
+> pytest
+``` 
+for testing everything and don´t forget to **import** every function in the file.
 
 ## Description
 
