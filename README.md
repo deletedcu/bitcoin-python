@@ -4,8 +4,8 @@
     <img src="https://img.shields.io/github/last-commit/julianYaman/bitcoinPriceApp_python.svg">
     <img src="https://img.shields.io/badge/language-python-blue.svg" />
     <a href="https://discord.gg/ccpgH3b"><img src="https://discordapp.com/api/guilds/358751806697897984/embed.png" /></a>
+    <a href="https://twitter.com/intent/user?screen_name=julianYaman"><img src="https://img.shields.io/twitter/follow/julianyaman.svg?style=social&label=Follow" /></a>
     <img src="https://img.shields.io/github/languages/code-size/julianYaman/bitcoinPriceApp_python.svg" alt="Code Size" />
-    <img src="https://img.shields.io/github/languages/top/julianYaman/bitcoinPriceApp_python.svg" alt="Top Language"/>
 </p>
 
 ## Installation:

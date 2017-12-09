@@ -1,8 +1,5 @@
 # JetBrains folder
 .idea
 
-# Pipfile
-Pipfile
-
 # Lock files
-*.lock
+Pipfile.lock
