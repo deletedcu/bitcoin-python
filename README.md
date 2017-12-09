@@ -27,7 +27,7 @@ or with **pip**:
 **To run the project type:**
 
 ```
-> python getproce
+> python getprice.py
 ```
 
 <hr>
