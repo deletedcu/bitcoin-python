@@ -9,6 +9,3 @@ __pycache__/
 
 # Cache pytest
 .cache/
-
-# Currently unnecessary files
-before.sh
