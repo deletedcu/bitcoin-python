@@ -11,6 +11,5 @@ install:
 cache: pip
 
 script:
-  - "python getprice.py"
   - "pytest testapp.py"
 
