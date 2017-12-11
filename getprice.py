@@ -4,7 +4,8 @@ from flask import render_template
 
 # Variables
 # Version of the app
-version = "1.0.0-12"
+# <major>.<minor>.<patch>-<total commits>
+version = "1.0.0-20"
 
 # API URL of the API used in this project
 API_url = "https://bitpay.com/api/rates/usd"
