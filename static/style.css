@@ -1,0 +1,38 @@
+body, html{
+    font-family: 'Roboto', sans-serif !important;
+    background: #3498db !important;
+    color: white !important;
+    height:100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+#wrapper{
+    height:100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+#wrapper td{
+    vertical-align: middle;
+    text-align: center;
+}
+h2{
+    text-align: center;
+    font-size: 25px;
+}
+h1.bitcoinPrice{
+    text-align: center;
+    font-size: 160px;
+    font-weight: 900;
+    margin: 0;
+}
+p{
+    opacity: 0.3;
+}
+p a{
+    color: white;
+    font-weight: bold;
+}

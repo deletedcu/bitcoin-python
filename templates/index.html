@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bitcoin Price {{ version }}</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <table id="wrapper">
+        <tr>
+            <td>
+                <h2>The current price of one Bitcoin is: </h2>
+                <h1 class="bitcoinPrice">{{ price }} $</h1>
+                <p>Used API: <a href="{{ api }}">{{ api }}</a></p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
