@@ -5,7 +5,7 @@ from flask import render_template
 # Variables
 # Version of the app
 # <major>.<minor>.<patch>-<total commits>
-version = "1.0.0-20"
+version = "1.1.0-21"
 
 # API URL of the API used in this project
 API_url = "https://bitpay.com/api/rates/usd"
@@ -44,7 +44,38 @@ def create_app():
     def rawoutput():
         return jsonify(api=API_url, currency=data['name'], currencycode=data['code'], price=price, version=version)
 
+    @app.route("/raw_exchanges_rates")
+    def rawexchangeoutput():
+        return requestingexchanges()
+
     return app
+
+
+def requestingexchanges():
+    bitfinex_url = "https://api.bitfinex.com/v1/pubticker/btcusd"
+    coinmarketcap_url = "https://api.coinmarketcap.com/v1/ticker/bitcoin/"
+
+    print("> Starting BitFinex Request")
+    bitfinex_request = requests.get(bitfinex_url)
+    bitfinex_data = bitfinex_request.json()
+    bitfinex_price = "{0:.2f}".format(float(bitfinex_data["high"]))
+    print("> BitFinex Request worked! ({0})\n".format(bitfinex_price))
+
+    print("> Starting BitPay Request")
+    bitpay_price = price
+    print("> BitPay Request worked! ({0})\n".format(price))
+
+    print("> Starting CoinMarketCap Request")
+    coinmarketcap_request = requests.get(coinmarketcap_url)
+    coinmarketcap_data = coinmarketcap_request.json()
+    coinmarketcap_price = "{0:.2f}".format(float(coinmarketcap_data[0]["price_usd"]))
+    print("> CoinMarketCap Request worked! ({0})\n\nAll requests worked fine!".format(coinmarketcap_price))
+
+    return jsonify(_code="USD",
+                   version=version,
+                   bitfinex=bitfinex_price,
+                   bitpay=bitpay_price,
+                   coinmarketcap=coinmarketcap_price)
 
 
 if __name__ == '__main__':
