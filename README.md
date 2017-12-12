@@ -50,8 +50,6 @@ My main purpose for creating this project is to learn more about Python and its 
 
 ## Planned updates:
 
-- **Web page:** 
+- **Automatic price refresh every minute:** Every minute, the price should be updated.
 
-I´ve planned to integrate Flask and to create a web page where you can see the current price of one Bitcoin.
-
-It will look like the **[Node.js Bitcoin Application](https://github.com/julianYaman/bitcoinPriceApplication_web)**.
+- **Changing between exchanges:** The user should be able to switch to any exchange and set it to the main one so the user will only see his preferred exchange option.
