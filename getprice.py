@@ -1,27 +1,18 @@
 import requests
-from flask import Flask, jsonify
-from flask import render_template
+import collections
+from flask_socketio import Namespace, SocketIO, emit, disconnect
+from flask import Flask, jsonify, render_template, request
+from time import sleep
+from threading import Thread, Event, Lock
 
 # Variables
+
+async_mode = None
+
 # Version of the app
 # <major>.<minor>.<patch>-<total commits>
 version = "1.1.0-21"
 
-# API URL of the API used in this project
-API_url = "https://bitpay.com/api/rates/usd"
-
-# Accessing JSON data
-data = requests.get(API_url)
-data = data.json()
-
-# Price in a single variable
-price = data["rate"]
-price = "{0:.2f}".format(price)
-
-# This line will be executed to provide support for older Python 3 versions
-print("\nConsole output: \nCurrent price of one Bitcoin is at: {0}$".format(price))
-print("API URL: {0}\n".format(API_url))
-print("Flask Output:")
 
 # You can use this if you are using Python 3.6 or newer.
 # print(f'Current price of one Bitcoin is at: {request["rate"]:.2f}$')
@@ -29,26 +20,109 @@ print("Flask Output:")
 # Creating the app
 
 
-def create_app():
-    app = Flask(__name__)
+app = Flask(__name__)
 
-    @app.route("/")
-    def home():
-        return render_template('index.html', version=version, price=price, api=API_url)
+app.config['SECRET_KEY'] = "secret!"
+socketio = SocketIO(app, async_mode=async_mode)
 
-    @app.route("/ping")
-    def ping():
-        return jsonify(ping='pong')
+# API URL of the API used in this project
+bitpay_url = "https://bitpay.com/api/rates"
 
-    @app.route("/raw")
-    def rawoutput():
-        return jsonify(api=API_url, currency=data['name'], currencycode=data['code'], price=price, version=version)
+# data[2] is EUR
+# data[1] is USD
 
-    @app.route("/raw_exchanges_rates")
-    def rawexchangeoutput():
-        return requestingexchanges()
+appstarted_bitpay_request = requests.get(bitpay_url)
+appstarted_bitpay_data = appstarted_bitpay_request.json()
 
-    return app
+bitpay_EUR = appstarted_bitpay_data[2]
+bitpay_USD = appstarted_bitpay_data[1]
+
+appstarted_bitpay_price = "{0:.2f} {1}".format(bitpay_EUR["rate"], bitpay_EUR["code"])
+
+# Price thread
+thread = None
+thread_lock = Lock()
+
+
+def background_thread():
+    print("Socket -> Requesting price from BitPay")
+    while True:
+        socketio.sleep(60)
+        bitpaydata = requests.get(bitpay_url)
+        bitpaydata = bitpaydata.json()
+
+        bitpay_EUR = bitpaydata[2]
+        bitpay_USD = bitpaydata[1]
+
+        bitpayprice = "{0:.2f} {1}".format(bitpay_EUR["rate"], bitpay_EUR["code"])
+
+        print("Socket -> Bitpay request -> BitPay price: " + bitpayprice)
+        socketio.emit('priceresponse', {'price': bitpayprice}, namespace='/price')
+
+
+@app.route("/")
+def home():
+    return render_template('index.html',
+                           version=version,
+                           api=bitpay_url,
+                           price=appstarted_bitpay_price)
+
+
+@app.route("/ping")
+def ping():
+    return jsonify(ping='pong')
+
+
+@app.route("/raw")
+def rawoutput():
+    bitpaydata = requests.get(bitpay_url)
+    bitpaydata = bitpaydata.json()
+
+    bitpay_EUR = bitpaydata[2]
+    bitpay_USD = bitpaydata[1]
+
+    bitpayprice = "{0:.2f} {1}".format(bitpay_EUR["rate"], bitpay_EUR["code"])
+
+    return jsonify(api=bitpay_url,
+                   currency=bitpay_EUR['name'],
+                   currencycode=bitpay_EUR,
+                   price=bitpayprice,
+                   version=version)
+
+
+@app.route("/raw_exchanges_rates")
+def rawexchangeoutput():
+    return requestingexchanges()
+
+
+@socketio.on('connect', namespace='/price')
+def test_connect():
+    global thread
+    print('Client connected', request.sid)
+    with thread_lock:
+        if thread is None:
+            thread = socketio.start_background_task(target=background_thread)
+    emit('my_event', {'data': "socket works"})
+
+
+@socketio.on('disconnect', namespace='/price')
+def test_disconnect():
+    print('Client disconnected', request.sid)
+
+
+@socketio.on_error()  # Handles the default namespace
+def error_handler(e):
+    pass
+
+
+@socketio.on('message')
+def handle_message(message):
+    print('received message: ' + message)
+
+
+@socketio.on_error('/price')  # handles the '/price' namespace
+def error_handler_chat(e):
+    pass
 
 
 def requestingexchanges():
@@ -62,8 +136,14 @@ def requestingexchanges():
     print("> BitFinex Request worked! ({0})\n".format(bitfinex_price))
 
     print("> Starting BitPay Request")
-    bitpay_price = price
-    print("> BitPay Request worked! ({0})\n".format(price))
+    bitpay_request = requests.get(bitpay_url)
+    bitpay_data = bitpay_request.json()
+
+    bitpay_EUR = bitpay_data[2]
+    bitpay_USD = bitpay_data[1]
+
+    bitpay_price = "{0:.2f}".format(bitpay_EUR["rate"])
+    print("> BitPay Request worked! ({0})\n".format(bitpay_price))
 
     print("> Starting CoinMarketCap Request")
     coinmarketcap_request = requests.get(coinmarketcap_url)
@@ -79,5 +159,4 @@ def requestingexchanges():
 
 
 if __name__ == '__main__':
-    app = create_app()
-    app.run(port=5000)
+    socketio.run(app)

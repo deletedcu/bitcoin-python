@@ -1,12 +1,9 @@
 import pytest
 
-from getprice import create_app
+from getprice import app
 
 
 @pytest.fixture
 def app():
-    app = create_app()
     app.debug = True
     return app
-
-
