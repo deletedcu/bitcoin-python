@@ -7,8 +7,8 @@ from threading import Thread, Event, Lock
 
 # Variables
 
-VERSION = "2.1.5"
-CHANGELOG = VERSION + " - Fixing issues with Travis Build tests and the background_thread func in the test app"
+VERSION = "2.2.0"
+CHANGELOG = VERSION + " - All issues fixed. Minor changes for installing "
 
 async_mode = None
 

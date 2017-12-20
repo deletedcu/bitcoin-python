@@ -1,5 +1,8 @@
 #!/bin/sh
 echo "Installing now all required packages:"
-pip install -r requirements.txt
-# Not needed but you don´t know if something could happen
-pipenv install requests
+pip install --user -r requirements.txt
+# Updating pipenv & pip
+pipenv --update
+# Needed if you already installed the packages and to upgrade them
+pip install --user -r requirements.txt --upgrade
+echo "Finished!"

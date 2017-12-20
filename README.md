@@ -6,18 +6,28 @@
     <a href="https://discord.gg/ccpgH3b"><img src="https://discordapp.com/api/guilds/358751806697897984/embed.png" /></a>
     <a href="https://twitter.com/intent/user?screen_name=julianYaman"><img src="https://img.shields.io/twitter/follow/julianyaman.svg?style=social&label=Follow" /></a>
     <img src="https://img.shields.io/github/languages/code-size/julianYaman/bitcoinPriceApp_python.svg" alt="Code Size" />
+    <img src="https://img.shields.io/badge/master--version-2.2.0-brightgreen.svg" />
+    <a href="https://github.com/julianYaman/bitcoinPriceApp_python/"><img src="https://img.shields.io/github/release/julianYaman/bitcoinPriceApp_python.svg" /></a>
 </p>
+
+<p align="center"><b>This application works with Python 2.7 and newer!</b><p>
 
 ## Installation:
 To install all dependencies which are required for this project, run:
 
-the **Bash script**
+the **Bash script** (recommended, use this on Linux)
 
 ```
 > install.sh
 ```
 
-or with **pip**:
+the **Bash script** (recommended, use this on Windows)
+
+```
+> install.cmd
+```
+
+or run the **pip** command:
 
 ```
 > pip install -r requirements.txt
@@ -32,9 +42,9 @@ or with **pip**:
 
 <hr>
 
-If you are going to add new functions, add them to **test_class.py** and run 
+If you are going to add new functions, add them to **testapp.py** and run 
 ```
-> pytest
+> pytest testapp.py -s
 ``` 
 for testing everything and don´t forget to **import** every function in the file.
 
@@ -42,11 +52,7 @@ for testing everything and don´t forget to **import** every function in the fil
 
 With this python application, you can check the price of one Bitcoin (currently you get the result in a console output).
 
-At the moment, I use the **[BitPay API](https://bitpay.com/api/rates/usd)** for getting the current price in US Dollar.
-
-**Note from the developer of the main repository (delete it when you fork it):**
-
-My main purpose for creating this project is to learn more about Python and its libraries.
+At the moment, I use the **[BitPay API](https://bitpay.com/api/rates)** for getting the current price in US Dollar.
 
 ## Planned updates:
 
