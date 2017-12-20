@@ -7,10 +7,8 @@ from threading import Thread, Event, Lock
 
 # Variables
 
-VERSION = "2.1.3"
+VERSION = "2.1.4"
 CHANGELOG = VERSION + " - Fixing issues with Travis Build tests and the background_thread func in the test app"
-CHANGELOG = CHANGELOG + "\n" + \
-                        VERSION + " - Minor changes in the console output"
 
 async_mode = None
 
