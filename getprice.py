@@ -7,9 +7,10 @@ from threading import Thread, Event, Lock
 
 # Variables
 
-VERSION = "2.1.2"
-CHANGELOG = "2.1.2 - Bugfix in testapp.py (test could take much longer than " \
-            "expected so background_thread repeats in an infinite loop)"
+VERSION = "2.1.3"
+CHANGELOG = VERSION + " - Fixing issues with Travis Build tests and the background_thread func in the test app"
+CHANGELOG = CHANGELOG + "\n" + \
+                        VERSION + " - Minor changes in the console output"
 
 async_mode = None
 

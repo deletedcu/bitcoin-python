@@ -68,15 +68,15 @@ def on_disconnect():
 
 @socketio.on('connect', namespace='/price')
 def on_connect_test():
-    send('connected-test')
-    send(json.dumps(dict(request.args)))
-    send(json.dumps({h: request.headers[h] for h in request.headers.keys()
-                     if h not in ['Host', 'Content-Type', 'Content-Length']}))
     global thread
     print('connect (/price) -> Client connected', request.sid)
     with thread_lock:
         if thread is None:
             thread = socketio.start_background_task(target=background_thread)
+    send('connected-test')
+    send(json.dumps(dict(request.args)))
+    send(json.dumps({h: request.headers[h] for h in request.headers.keys()
+                     if h not in ['Host', 'Content-Type', 'Content-Length']}))
 
 
 @socketio.on('disconnect', namespace='/price')
@@ -154,10 +154,10 @@ class TestSocketIO(unittest.TestCase):
         received = client.get_received('/price')
         print("test_connect_namespace (price) -> \n" + str(received))
         self.assertEqual(len(received), 4)
-        self.assertEqual(received[0]['args'], 'connected-test')
-        self.assertEqual(received[1]['args'], '{}')
+        self.assertEqual(received[0]['args'], {'price': bitpayprice})
+        self.assertEqual(received[1]['args'], 'connected-test')
         self.assertEqual(received[2]['args'], '{}')
-        self.assertEqual(received[3]['args'], {'price': bitpayprice})
+        self.assertEqual(received[3]['args'], '{}')
         client.disconnect(namespace='/price')
         print("Test -> test_connect_namespace -> Successful\n")
 
@@ -227,8 +227,8 @@ class TestSocketIO(unittest.TestCase):
         print("Test -> test_requests -> Successful\n")
 
 
-print("\n##########\nUsed version of application: " + getprice.VERSION)
-print("Changelog for version " + getprice.VERSION + ":\n" + getprice.CHANGELOG + "\n##########")
+print("\n##########\nVersion of application: " + getprice.VERSION)
+print("Changelog:\n" + getprice.CHANGELOG + "\n##########")
 
 if __name__ == '__main__':
     unittest.main()
