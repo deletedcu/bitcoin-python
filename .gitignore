@@ -9,3 +9,6 @@ __pycache__/
 
 # Cache pytest
 .cache/
+
+# Coverage
+.coverage

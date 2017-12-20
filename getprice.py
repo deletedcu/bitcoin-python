@@ -7,18 +7,14 @@ from threading import Thread, Event, Lock
 
 # Variables
 
+VERSION = "2.1.0"
+
 async_mode = None
-
-# Version of the app
-# <major>.<minor>.<patch>-<total commits>
-version = "1.1.0-21"
-
 
 # You can use this if you are using Python 3.6 or newer.
 # print(f'Current price of one Bitcoin is at: {request["rate"]:.2f}$')
 
 # Creating the app
-
 
 app = Flask(__name__)
 
@@ -63,8 +59,8 @@ def background_thread():
 @app.route("/")
 def home():
     return render_template('index.html',
-                           version=version,
                            api=bitpay_url,
+                           version=VERSION,
                            price=appstarted_bitpay_price)
 
 
@@ -87,7 +83,7 @@ def rawoutput():
                    currency=bitpay_EUR['name'],
                    currencycode=bitpay_EUR,
                    price=bitpayprice,
-                   version=version)
+                   version=VERSION)
 
 
 @app.route("/raw_exchanges_rates")
@@ -152,7 +148,7 @@ def requestingexchanges():
     print("> CoinMarketCap Request worked! ({0})\n\nAll requests worked fine!".format(coinmarketcap_price))
 
     return jsonify(_code="USD",
-                   version=version,
+                   version=VERSION,
                    bitfinex=bitfinex_price,
                    bitpay=bitpay_price,
                    coinmarketcap=coinmarketcap_price)
