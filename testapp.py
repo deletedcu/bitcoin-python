@@ -73,6 +73,9 @@ def on_connect_test():
     with thread_lock:
         if thread is None:
             thread = socketio.start_background_task(target=background_thread)
+    # Added sleep function so the background function can doing its things right and successful
+    # Sleeping for 5 seconds, this should be enough for the background function
+    socketio.sleep(5)
     send('connected-test')
     send(json.dumps(dict(request.args)))
     send(json.dumps({h: request.headers[h] for h in request.headers.keys()
@@ -151,11 +154,6 @@ class TestSocketIO(unittest.TestCase):
         print("#####################")
         print("\nTest -> test_connect_namespace -> Test started")
         client = socketio.test_client(app, namespace='/price')
-
-        # Added sleep function so the background function can doing its things right and successful
-        # Sleeping for 10 seconds, this should be enough for the background function
-        socketio.sleep(10)
-
         received = client.get_received('/price')
         print("test_connect_namespace (price) -> \n" + str(received))
         self.assertEqual(len(received), 4)
