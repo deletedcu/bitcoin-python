@@ -1,4 +1,5 @@
 import json
+import sys
 import unittest
 import coverage
 import getprice
@@ -46,8 +47,7 @@ def background_thread():
         print("background_thread -> Got successfully a response to the request!")
         print("background_thread -> Bitpay request -> BitPay price: " + bitpayprice + "\n")
         socketio.send({'price': bitpayprice}, namespace='/price')
-        # Set it to 20 Minutes, it should not be possible that the test takes so long (I hope)
-        socketio.sleep(2400)
+        exit(0)
 
 
 @socketio.on('connect')
