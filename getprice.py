@@ -7,7 +7,7 @@ from threading import Thread, Event, Lock
 
 # Variables
 
-VERSION = "2.2.0"
+VERSION = "2.2.1"
 CHANGELOG = VERSION + " - All issues fixed. Minor changes for installing "
 
 async_mode = None

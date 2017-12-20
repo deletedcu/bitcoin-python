@@ -1,5 +1,5 @@
 echo Installing now all required packages
-pip install -r requirements.txt --user
+pip install -r requirements.txt
 pipenv --update
-pip install -r requirements.txt --upgrade --user
+pip install -r requirements.txt --upgrade
 echo Finished!
