@@ -152,12 +152,12 @@ class TestSocketIO(unittest.TestCase):
         print("\nTest -> test_connect_namespace -> Test started")
         client = socketio.test_client(app, namespace='/price')
         received = client.get_received('/price')
+        print("test_connect_namespace (price) -> \n" + str(received))
         self.assertEqual(len(received), 4)
         self.assertEqual(received[0]['args'], 'connected-test')
         self.assertEqual(received[1]['args'], '{}')
         self.assertEqual(received[2]['args'], '{}')
         self.assertEqual(received[3]['args'], {'price': bitpayprice})
-        print("test_connect_namespace (price) -> \n" + str(received))
         client.disconnect(namespace='/price')
         print("Test -> test_connect_namespace -> Successful\n")
 
@@ -178,9 +178,9 @@ class TestSocketIO(unittest.TestCase):
         client.get_received()
         client.send('echo this message back')
         received = client.get_received()
+        print("test_send -> " + str(received))
         self.assertEqual(len(received), 1)
         self.assertEqual(received[0]['args'], 'echo this message back')
-        print("test_send -> " + str(received))
         print("Test -> test_send -> Successful\n")
 
     # Random Error handling test
@@ -188,14 +188,14 @@ class TestSocketIO(unittest.TestCase):
         print("Test -> test_error_handling_default -> Test started")
         client = socketio.test_client(app, namespace='/unused_namespace')
         client.get_received('/unused_namespace')
+        print('test_error_handling_default -> client.get_received(/unused_namespace) -> ' + str(client.get_received('/unused_namespace')))
 
         global error_testing_default
         error_testing_default = False
         client.emit("error testing", "", namespace='/unused_namespace')
 
-        self.assertTrue(error_testing_default)
-        print('test_error_handling_default -> client.get_received(/unused_namespace) -> ' + str(client.get_received('/unused_namespace')))
         print('test_error_handling_default (unused_namespace) -> error_testing_default -> ' + str(error_testing_default))
+        self.assertTrue(error_testing_default)
         print("Test -> test_error_handling_default -> Successful\n")
 
     # Basic Flask unit test
