@@ -46,7 +46,8 @@ def background_thread():
         print("background_thread -> Got successfully a response to the request!")
         print("background_thread -> Bitpay request -> BitPay price: " + bitpayprice + "\n")
         socketio.send({'price': bitpayprice}, namespace='/price')
-        socketio.sleep(60)
+        # Set it to 20 Minutes, it should not be possible that the test takes so long (I hope)
+        socketio.sleep(2400)
 
 
 @socketio.on('connect')
@@ -226,7 +227,8 @@ class TestSocketIO(unittest.TestCase):
         print("Test -> test_requests -> Successful\n")
 
 
-print("\n##### Used version of application: " + getprice.VERSION + " #####")
+print("\n##########\nUsed version of application: " + getprice.VERSION)
+print("Changelog for version " + getprice.VERSION + ":\n" + getprice.CHANGELOG + "\n##########")
 
 if __name__ == '__main__':
     unittest.main()

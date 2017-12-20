@@ -7,7 +7,9 @@ from threading import Thread, Event, Lock
 
 # Variables
 
-VERSION = "2.1.0"
+VERSION = "2.1.1"
+CHANGELOG = "2.1.1 - Bugfix in testapp.py (test could take much longer than " \
+            "expected so background_thread repeats in an infinite loop)"
 
 async_mode = None
 
