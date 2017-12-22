@@ -37,7 +37,8 @@ or run the **pip** command:
 **To run the project type:**
 
 ```
-> python getprice.py
+> set FLASK_APP=getprice.py
+> flask run
 ```
 
 <hr>
