@@ -1,3 +1,7 @@
+import eventlet
+eventlet.monkey_patch()
+
+
 import requests
 import collections
 from flask_socketio import Namespace, SocketIO, emit, disconnect
@@ -5,9 +9,10 @@ from flask import Flask, jsonify, render_template, request
 from time import sleep
 from threading import Thread, Event, Lock
 
+
 # Variables
 
-VERSION = "2.2.1"
+VERSION = "2.3.0"
 CHANGELOG = VERSION + " - All issues fixed. Minor changes for installing "
 
 async_mode = None
@@ -54,7 +59,11 @@ def background_thread():
         bitpayprice = "{0:.2f} {1}".format(bitpay_EUR["rate"], bitpay_EUR["code"])
 
         print("Socket -> Bitpay request -> BitPay price: " + bitpayprice)
-        socketio.emit('priceresponse', {'price': bitpayprice}, namespace='/price')
+        socketio.emit('price_message', {'price': bitpayprice}, namespace='/price')
+        socketio.emit('server_message', {'data': 'Price response sent to client!'}, namespace='/price')
+
+        global appstarted_bitpay_price
+        appstarted_bitpay_price = "{0:.2f} {1}".format(bitpay_EUR["rate"], bitpay_EUR["code"])
 
 
 @app.route("/")
@@ -96,10 +105,13 @@ def rawexchangeoutput():
 def test_connect():
     global thread
     print('Client connected', request.sid)
+    emit('server_message', {'data': "Socket works! You are connected!"})
+    emit('server_message', {'data': "You´ll get now a price update every minute!"})
     with thread_lock:
         if thread is None:
             thread = socketio.start_background_task(target=background_thread)
-    emit('my_event', {'data': "socket works"})
+            print('Thread started!')
+            emit('server_message', {'data': 'Background task started!'})
 
 
 @socketio.on('disconnect', namespace='/price')
@@ -107,18 +119,22 @@ def test_disconnect():
     print('Client disconnected', request.sid)
 
 
+@socketio.on('client_message', namespace='/price')
+def handle_client_message(message):
+    print("Message from the client " + request.sid + ": " + message['data'])
+
+
 @socketio.on_error()  # Handles the default namespace
-def error_handler(e):
+def error_handler_default(e):
+    print("Default error handler")
+    print(e)
     pass
 
 
-@socketio.on('message')
-def handle_message(message):
-    print('received message: ' + message)
-
-
 @socketio.on_error('/price')  # handles the '/price' namespace
-def error_handler_chat(e):
+def error_handler_price(e):
+    print("/price error handler")
+    print(e)
     pass
 
 
@@ -156,4 +172,4 @@ def requestingexchanges():
 
 
 if __name__ == '__main__':
-    socketio.run(app)
+    socketio.run(app, port=5000)
