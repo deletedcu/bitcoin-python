@@ -12,37 +12,57 @@ body, html{
 /* Notification */
 
 .notification{
-    padding: 4%;
+    padding: 10px 15px 10px 10px;
+    min-width: 300px;
+    max-width: 350px;
 }
 .notification_list{
     position: absolute;
     bottom: 20px;
     list-style-type: none;
 }
+.notification_list li{
+    margin-bottom: 10px;
+}
+.notification small{
+    opacity: 0.7;
+}
 
-.error_notification{
-    background: red;
+.success_notification{
+    background: #2ecc71;
     font-weight: bold;
+    border-left: 6px solid #27ae60;
+}
+.warning_notification{
+    background: #f39c12;
+    font-weight: bold;
+    border-left: 6px solid #f39c12;
+}
+.error_notification{
+    background: #e74c3c;
+    font-weight: bold;
+    border-left: 6px solid #c0392b;
 }
 .info_notification{
-    background: deepskyblue;
+    background: #0287d0;
     font-weight: bold;
-    border-left: 3px solid aquamarine;
+    border-left: 6px solid #0077c0;
 }
 
 #close_notification{
-    background: none;
+    background: #e74c3c;
     border: 2px solid white;
     border-radius: 8px;
-    padding: 1% 7%;
+    padding: 2px 8px;
     color: white;
     font-weight: bold;
     font-size: 18px;
     cursor: pointer;
     transition: 0.3s ease-in-out background;
+    float: right;
 }
 #close_notification:hover{
-    background: rgba(255,255,255,0.3);
+    background: #c0392b;
     transition: 0.3s ease-in-out background;
 }
 

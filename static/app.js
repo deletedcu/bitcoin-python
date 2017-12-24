@@ -13,7 +13,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         var infoNotificationTemplate =
             "        <div class='content'>" +
             "            Connected to the server!" +
-            "            <button id='close_notification' onclick='closeNotification(\"" + newIdName + "\")'>Close</button>" +
+            "            <button id='close_notification' onclick='closeNotification(\"" + newIdName + "\")'>X</button><br>" +
+            "            <small>" + currentDate(new Date()) + "</small>" +
             "        </div>";
 
         var notificationList = document.getElementById("notification_list");
@@ -21,8 +22,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         notificationList.appendChild(entry);
         entry.appendChild(notification);
         entry.id = newIdName;
-        notification.className = "notification info_notification";
-        notification.id = "info_notification";
+        notification.className = "notification success_notification";
         notification.innerHTML = infoNotificationTemplate;
 
     });
@@ -50,6 +50,24 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 progressBar.style.width = finalWidth + '%';
             }
         }
+
+        var newIdName = currentDate(new Date()).replace(" ", "-") + "-notification";
+
+        var notification = document.createElement("div");
+        var infoNotificationTemplate =
+            "        <div class='content'>" +
+            "            Price updated to: <u>" + msg.price + "</u>" +
+            "            <button id='close_notification' onclick='closeNotification(\"" + newIdName + "\")'>X</button><br>" +
+            "            <small>" + currentDate(new Date()) + "</small>" +
+            "        </div>";
+
+        var notificationList = document.getElementById("notification_list");
+        var entry = document.createElement('li');
+        notificationList.appendChild(entry);
+        entry.appendChild(notification);
+        entry.id = newIdName;
+        notification.className = "notification info_notification";
+        notification.innerHTML = infoNotificationTemplate;
     });
 
     socket.on('error', function (error) {
@@ -60,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         var errorNotificationTemplate =
             "        <div class='content'>" +
             "            Error occurred when trying to connect to the server!" +
-            "            <button id='close_notification' onclick='closeNotification(\"" + newIdName + "\")'>Close</button>" +
+            "            <button id='close_notification' onclick='closeNotification(\"" + newIdName + "\")'>X</button>" +
             "        </div>";
 
         var notificationList = document.getElementById("notification_list");
@@ -69,7 +87,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         entry.appendChild(notification);
         entry.id = newIdName;
         notification.className = "notification error_notification";
-        notification.id = "error_notification";
         notification.innerHTML = errorNotificationTemplate;
 
     });
