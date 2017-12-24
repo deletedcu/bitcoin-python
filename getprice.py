@@ -12,8 +12,8 @@ from threading import Thread, Event, Lock
 
 # Variables
 
-VERSION = "2.3.1"
-CHANGELOG = VERSION + " - Minor changes in the main python application"
+VERSION = "2.4.2"
+CHANGELOG = VERSION + " - Deleted old conftest.py file (deprecated), made issues while testing on Python 2.7"
 
 async_mode = None
 
