@@ -8,6 +8,45 @@ body, html{
     padding: 0;
     border: 0;
 }
+
+/* Notification */
+
+.notification{
+    padding: 4%;
+}
+.notification_list{
+    position: absolute;
+    bottom: 20px;
+    list-style-type: none;
+}
+
+.error_notification{
+    background: red;
+    font-weight: bold;
+}
+.info_notification{
+    background: deepskyblue;
+    font-weight: bold;
+    border-left: 3px solid aquamarine;
+}
+
+#close_notification{
+    background: none;
+    border: 2px solid white;
+    border-radius: 8px;
+    padding: 1% 7%;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out background;
+}
+#close_notification:hover{
+    background: rgba(255,255,255,0.3);
+    transition: 0.3s ease-in-out background;
+}
+
+/* Progress Bar */
 #progressBar{
     position: absolute;
     width: 100%;
@@ -18,6 +57,7 @@ body, html{
     width: 1%;
     height: 3px;
     left: 0;
+    box-shadow: 1px 1px 5px 1px white;
 }
 #wrapper{
     height:100%;

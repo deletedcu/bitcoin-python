@@ -6,6 +6,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     socket.on('connect', function() {
         socket.emit("client_message", {data: currentDate(new Date()) + ' I´m connected with the server!'});
+
+        var newIdName = currentDate(new Date()).replace(" ", "-") + "-notification";
+
+        var notification = document.createElement("div");
+        var infoNotificationTemplate =
+            "        <div class='content'>" +
+            "            Connected to the server!" +
+            "            <button id='close_notification' onclick='closeNotification(\"" + newIdName + "\")'>Close</button>" +
+            "        </div>";
+
+        var notificationList = document.getElementById("notification_list");
+        var entry = document.createElement('li');
+        notificationList.appendChild(entry);
+        entry.appendChild(notification);
+        entry.id = newIdName;
+        notification.className = "notification info_notification";
+        notification.id = "info_notification";
+        notification.innerHTML = infoNotificationTemplate;
+
     });
 
     socket.on('server_message', function (message) {
@@ -25,12 +44,34 @@ document.addEventListener("DOMContentLoaded", function(event) {
         var interval = setInterval(frame, 1000);
         function frame() {
             if ((width / 60) * 100 >= 100) {
-                interval(id);
+                clearInterval(interval);
             } else {
                 var finalWidth = (width++ / 60) * 100;
                 progressBar.style.width = finalWidth + '%';
             }
         }
+    });
+
+    socket.on('error', function (error) {
+
+        var newIdName = currentDate(new Date()).replace(" ", "-") + "-notification";
+
+        var notification = document.createElement("div");
+        var errorNotificationTemplate =
+            "        <div class='content'>" +
+            "            Error occurred when trying to connect to the server!" +
+            "            <button id='close_notification' onclick='closeNotification(\"" + newIdName + "\")'>Close</button>" +
+            "        </div>";
+
+        var notificationList = document.getElementById("notification_list");
+        var entry = document.createElement('li');
+        notificationList.appendChild(entry);
+        entry.appendChild(notification);
+        entry.id = newIdName;
+        notification.className = "notification error_notification";
+        notification.id = "error_notification";
+        notification.innerHTML = errorNotificationTemplate;
+
     });
 
     console.log(socket);
@@ -56,5 +97,9 @@ function currentDate(/** Date */date) {
     return "<" + month + "/" + day + "/" + year + " " + hour + ":" + minute + ":" + seconds + ">";
 }
 
+function closeNotification(id) {
+    var notification = document.getElementById(id);
+    notification.parentNode.removeChild(notification);
+}
 
 

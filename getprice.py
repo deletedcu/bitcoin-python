@@ -12,8 +12,8 @@ from threading import Thread, Event, Lock
 
 # Variables
 
-VERSION = "2.3.0"
-CHANGELOG = VERSION + " - All issues fixed. Minor changes for installing "
+VERSION = "2.3.1"
+CHANGELOG = VERSION + " - Minor changes in the main python application"
 
 async_mode = None
 
