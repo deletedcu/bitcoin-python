@@ -66,6 +66,40 @@ body, html{
     transition: 0.3s ease-in-out background;
 }
 
+#deleteAllNotifications{
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    background: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 0 8px 0 0;
+    transition: 0.3s ease-in-out background;
+}
+#deleteAllNotifications:hover{
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    background: #bdc3c7;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 0 8px 0 0;
+    transition: 0.3s ease-in-out background;
+}
+#amountNotifications{
+    border-radius: 200px;
+    background: red;
+    min-width: 18px;
+    display: -moz-inline-grid;
+    color: white;
+    font-weight: bold;
+    height: 18px;
+    padding: 1px;
+    margin-right: 5px;
+}
+
 /* Progress Bar */
 #progressBar{
     position: absolute;

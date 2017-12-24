@@ -1,7 +1,6 @@
 import eventlet
 eventlet.monkey_patch()
 
-
 import requests
 import collections
 from flask_socketio import Namespace, SocketIO, emit, disconnect
@@ -12,8 +11,8 @@ from threading import Thread, Event, Lock
 
 # Variables
 
-VERSION = "2.4.2"
-CHANGELOG = VERSION + " - Deleted old conftest.py file (deprecated), made issues while testing on Python 2.7"
+VERSION = "2.4.3"
+CHANGELOG = VERSION + " - Frontend changes"
 
 async_mode = None
 

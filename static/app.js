@@ -1,3 +1,5 @@
+var notificationArray = [];
+
 document.addEventListener("DOMContentLoaded", function(event) {
     console.log('Document fully loaded');
 
@@ -5,11 +7,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
     console.log(currentDate(new Date()) + ' Socket connected!');
 
     socket.on('connect', function() {
+        // Emitting a message to the server that the client is connected.
         socket.emit("client_message", {data: currentDate(new Date()) + ' I´m connected with the server!'});
 
-        var newIdName = currentDate(new Date()).replace(" ", "-") + "-notification";
+        // Creating a random ID for the new created entry in the list to identify the created entry later.
+        var milliseconds = new Date().getMilliseconds();
+        var randomNumber = Math.floor(Math.random() * 1000);
+        var newIdName = currentDate(new Date()).replace(" ", "-") + "-" + milliseconds + randomNumber + "-notification";
 
+        // Creating the notification
         var notification = document.createElement("div");
+
+        // Content of the notification
         var infoNotificationTemplate =
             "        <div class='content'>" +
             "            Connected to the server!" +
@@ -17,18 +26,63 @@ document.addEventListener("DOMContentLoaded", function(event) {
             "            <small>" + currentDate(new Date()) + "</small>" +
             "        </div>";
 
+        // Accessing the notification list (<ul>)
         var notificationList = document.getElementById("notification_list");
+
+        // Creating the element
         var entry = document.createElement('li');
+
+        // Append the new elements to the list
         notificationList.appendChild(entry);
         entry.appendChild(notification);
+
+        // Setting new data
         entry.id = newIdName;
         notification.className = "notification success_notification";
         notification.innerHTML = infoNotificationTemplate;
+
+        // Push the new ID name to the notification array
+        notificationArray.push(newIdName);
+
+        // Showing the amount of currently visible notifications
+        var amountNotificationsElement = document.getElementById("deleteAllNotifications").getElementsByTagName("span")[0];
+        amountNotificationsElement.innerText = notificationArray.length;
 
     });
 
     socket.on('server_message', function (message) {
         console.log(currentDate(new Date()) + " Message from the server: " + message.data);
+
+        /*
+        *
+        * The code below is only for development purposes.
+        *
+        * */
+
+        // var milliseconds = new Date().getMilliseconds();
+        // var randomNumber = Math.floor(Math.random() * 1000);
+        // var newIdName = currentDate(new Date()).replace(" ", "-") + "-" + milliseconds + randomNumber + "-notification";
+        //
+        // var notification = document.createElement("div");
+        // var infoNotificationTemplate =
+        //     "        <div class='content'>" +
+        //     "            Got a message by the server!" +
+        //     "            <button id='close_notification' onclick='closeNotification(\"" + newIdName + "\")'>X</button><br>" +
+        //     "            <small>" + currentDate(new Date()) + "</small>" +
+        //     "        </div>";
+        //
+        // var notificationList = document.getElementById("notification_list");
+        // var entry = document.createElement('li');
+        // notificationList.appendChild(entry);
+        // entry.appendChild(notification);
+        // entry.id = newIdName;
+        // notification.className = "notification info_notification";
+        // notification.innerHTML = infoNotificationTemplate;
+        //
+        // notificationArray.push(newIdName);
+        // var amountNotificationsElement = document.getElementById("deleteAllNotifications").getElementsByTagName("span")[0];
+        //
+        // amountNotificationsElement.innerText = notificationArray.length;
     });
 
     socket.on('price_message', function (msg) {
@@ -51,7 +105,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
         }
 
-        var newIdName = currentDate(new Date()).replace(" ", "-") + "-notification";
+        var milliseconds = new Date().getMilliseconds();
+        var randomNumber = Math.floor(Math.random() * 1000);
+        var newIdName = currentDate(new Date()).replace(" ", "-") + "-" + milliseconds + randomNumber + "-notification";
 
         var notification = document.createElement("div");
         var infoNotificationTemplate =
@@ -68,11 +124,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
         entry.id = newIdName;
         notification.className = "notification info_notification";
         notification.innerHTML = infoNotificationTemplate;
+
+        notificationArray.push(newIdName);
+        var amountNotificationsElement = document.getElementById("deleteAllNotifications").getElementsByTagName("span")[0];
+
+        amountNotificationsElement.innerText = notificationArray.length;
+
     });
 
     socket.on('error', function (error) {
 
-        var newIdName = currentDate(new Date()).replace(" ", "-") + "-notification";
+        var milliseconds = new Date().getMilliseconds();
+        var randomNumber = Math.floor(Math.random() * 1000);
+        var newIdName = currentDate(new Date()).replace(" ", "-") + "-" + milliseconds + randomNumber + "-notification";
 
         var notification = document.createElement("div");
         var errorNotificationTemplate =
@@ -88,6 +152,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         entry.id = newIdName;
         notification.className = "notification error_notification";
         notification.innerHTML = errorNotificationTemplate;
+
+        notificationArray.push(newIdName);
+        var amountNotificationsElement = document.getElementById("deleteAllNotifications").getElementsByTagName("span")[0];
+
+        amountNotificationsElement.innerText = notificationArray.length;
 
     });
 
@@ -116,7 +185,30 @@ function currentDate(/** Date */date) {
 
 function closeNotification(id) {
     var notification = document.getElementById(id);
+
+    var index = notificationArray.indexOf(id);
+    if(index > -1){
+        notificationArray.splice(index, 1);
+    }
+
+    var amountNotificationsElement = document.getElementById("deleteAllNotifications").getElementsByTagName("span")[0];
+    amountNotificationsElement.innerText = notificationArray.length;
+
     notification.parentNode.removeChild(notification);
+}
+
+function deleteAllNotifications() {
+    var notificationList = document.getElementById("notification_list");
+
+    notificationArray = [];
+
+    // Thanks to Gabriel McAdams & Denilson Sá Maia -> https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
+    while (notificationList.firstChild) {
+        notificationList.removeChild(notificationList.firstChild);
+    }
+
+    var amountNotificationsElement = document.getElementById("deleteAllNotifications").getElementsByTagName("span")[0];
+    amountNotificationsElement.innerText = notificationArray.length;
 }
 
 
