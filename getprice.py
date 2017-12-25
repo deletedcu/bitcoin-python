@@ -105,7 +105,7 @@ def test_connect():
     global thread
     print('Client connected', request.sid)
     emit('server_message', {'data': "Socket works! You are connected!"})
-    emit('server_message', {'data': "You´ll get now a price update every minute!"})
+    emit('server_message', {'data': "You will get now a price update every minute!"})
     with thread_lock:
         if thread is None:
             thread = socketio.start_background_task(target=background_thread)
