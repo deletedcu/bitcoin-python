@@ -92,8 +92,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         /* TODO: How to set the progress bar width when a client connects while the 60 sec loop is running on the server side. */
 
+        // Accessing the element which contains the progress bar
         var progressBar = document.getElementById("progressBarInner");
 
+        // Giving a new width to the bar every second and restarting the progress when the width reached 100% of the screen
+        // https://www.w3schools.com/howto/howto_js_progressbar.asp
         var width = 1;
         var interval = setInterval(frame, 1000);
         function frame() {
@@ -105,11 +108,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
         }
 
+        // Creating a random ID for the new created entry in the list to identify the created entry later.
         var milliseconds = new Date().getMilliseconds();
         var randomNumber = Math.floor(Math.random() * 1000);
         var newIdName = currentDate(new Date()).replace(" ", "-") + "-" + milliseconds + randomNumber + "-notification";
 
+        // Creating the notification
         var notification = document.createElement("div");
+
+        // Content of the notification
         var infoNotificationTemplate =
             "        <div class='content'>" +
             "            Price updated to: <u>" + msg.price + "</u>" +
@@ -117,45 +124,68 @@ document.addEventListener("DOMContentLoaded", function(event) {
             "            <small>" + currentDate(new Date()) + "</small>" +
             "        </div>";
 
+        // Accessing the notification list (<ul>)
         var notificationList = document.getElementById("notification_list");
+
+        // Creating the element
         var entry = document.createElement('li');
         notificationList.appendChild(entry);
+
+        // Append the new elements to the list
         entry.appendChild(notification);
+
+        // Setting new data
         entry.id = newIdName;
         notification.className = "notification info_notification";
         notification.innerHTML = infoNotificationTemplate;
 
+        // Push the new ID name to the notification array
         notificationArray.push(newIdName);
-        var amountNotificationsElement = document.getElementById("deleteAllNotifications").getElementsByTagName("span")[0];
 
+        // Showing the amount of currently visible notifications
+        var amountNotificationsElement = document.getElementById("deleteAllNotifications").getElementsByTagName("span")[0];
         amountNotificationsElement.innerText = notificationArray.length;
 
     });
 
+    // Error in very rare moments
     socket.on('error', function (error) {
 
+        // Creating a random ID for the new created entry in the list to identify the created entry later.
         var milliseconds = new Date().getMilliseconds();
         var randomNumber = Math.floor(Math.random() * 1000);
         var newIdName = currentDate(new Date()).replace(" ", "-") + "-" + milliseconds + randomNumber + "-notification";
 
+        // Creating the notification
         var notification = document.createElement("div");
+
+        // Content of the notification
         var errorNotificationTemplate =
             "        <div class='content'>" +
             "            Error occurred when trying to connect to the server!" +
             "            <button id='close_notification' onclick='closeNotification(\"" + newIdName + "\")'>X</button>" +
             "        </div>";
 
+        // Accessing the notification list (<ul>)
         var notificationList = document.getElementById("notification_list");
+
+        // Creating the element
         var entry = document.createElement('li');
+
+        // Append the new elements to the list
         notificationList.appendChild(entry);
         entry.appendChild(notification);
+
+        // Setting new data
         entry.id = newIdName;
         notification.className = "notification error_notification";
         notification.innerHTML = errorNotificationTemplate;
 
+        // Push the new ID name to the notification array
         notificationArray.push(newIdName);
-        var amountNotificationsElement = document.getElementById("deleteAllNotifications").getElementsByTagName("span")[0];
 
+        // Showing the amount of currently visible notifications
+        var amountNotificationsElement = document.getElementById("deleteAllNotifications").getElementsByTagName("span")[0];
         amountNotificationsElement.innerText = notificationArray.length;
 
     });
@@ -164,6 +194,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 });
 
+// Adding a zero if the hour, minute or seconds number is below zero
 function addZero(i) {
     if (i < 10) {
         i = "0" + i;
@@ -171,6 +202,7 @@ function addZero(i) {
     return i;
 }
 
+// Function which returns the current date in a more readable string
 function currentDate(/** Date */date) {
     var day = date.getDate();
     var month = date.getMonth();
@@ -183,6 +215,7 @@ function currentDate(/** Date */date) {
     return "<" + month + "/" + day + "/" + year + " " + hour + ":" + minute + ":" + seconds + ">";
 }
 
+// Closes a notification with the given id of the notification.
 function closeNotification(id) {
     var notification = document.getElementById(id);
 
@@ -197,6 +230,7 @@ function closeNotification(id) {
     notification.parentNode.removeChild(notification);
 }
 
+// Function for deleting all notifications
 function deleteAllNotifications() {
     var notificationList = document.getElementById("notification_list");
 
