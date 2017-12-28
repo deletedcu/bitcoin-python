@@ -1,4 +1,5 @@
 import eventlet
+eventlet.sleep()
 eventlet.monkey_patch()
 
 import requests
