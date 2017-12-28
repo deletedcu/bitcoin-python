@@ -1,7 +1,7 @@
 import eventlet
-import requests
-
 eventlet.monkey_patch()
+
+import requests
 
 from flask_socketio import Namespace, SocketIO, emit, disconnect
 from flask import Flask, jsonify, render_template, request
@@ -11,8 +11,8 @@ from threading import Thread, Event, Lock
 
 # Variables
 
-VERSION = "2.4.3"
-CHANGELOG = VERSION + " - Frontend changes"
+VERSION = "2.4.4"
+CHANGELOG = VERSION + " - fix: requests issue with eventlet and monkey_patch"
 
 async_mode = None
 
