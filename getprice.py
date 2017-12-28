@@ -1,8 +1,8 @@
 import eventlet
+import requests
+
 eventlet.monkey_patch()
 
-import requests
-import collections
 from flask_socketio import Namespace, SocketIO, emit, disconnect
 from flask import Flask, jsonify, render_template, request
 from time import sleep
