@@ -162,8 +162,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         // Content of the notification
         var errorNotificationTemplate =
             "        <div class='content'>" +
-            "            Error occurred when trying to connect to the server!" +
             "            <button id='close_notification' onclick='closeNotification(\"" + newIdName + "\")'>X</button>" +
+            "            Error occurred when trying to connect to the server!" +
             "        </div>";
 
         // Accessing the notification list (<ul>)
