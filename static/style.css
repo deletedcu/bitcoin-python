@@ -9,6 +9,10 @@ body, html{
     border: 0;
 }
 
+.clearfix{
+    clear: both;
+}
+
 /* Notification */
 
 .notification{
@@ -127,7 +131,8 @@ body, html{
 .dialogWindowContent h1{
     text-align: center;
 }
-.dialogWindowContent small{
+.dialogWindowContent p{
+    font-size: small;
     text-align: right;
     color: darkgrey;
 }
@@ -138,6 +143,7 @@ body, html{
     font-size: 25pt;
     position: relative;
     cursor: pointer;
+    float: right;
 }
 
 #settingsButton{
