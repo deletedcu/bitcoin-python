@@ -12,8 +12,16 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
 </head>
 <body>
+    <div id="settingsDialogWindow">
+        <div class="dialogWindowContent">
+            <button id="closeSettingsDialogWindow"><i class="fas fa-window-close"></i></button>
+            <h1>Currently, here is nothing. Please wait until a function will be released.</h1>
+            <small>{{ version }}</small>
+        </div>
+    </div>
     <button id="deleteAllNotifications" onclick="deleteAllNotifications()"><span id="amountNotifications">0</span><i class="fas fa-trash-alt"></i></button>
     <ul class="notification_list" id="notification_list"></ul>
+    <button id="settingsButton" onclick="openSettingsDialog()"><i class="fas fa-cogs"></i></button>
     <div id="progressBar">
         <div id="progressBarInner"></div>
     </div>

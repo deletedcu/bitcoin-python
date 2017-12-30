@@ -192,6 +192,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     console.log(socket);
 
+    // Check if the close button for the settings dialog window was pressed (event handler)
+    var closeButton = document.getElementById('closeSettingsDialogWindow');
+    closeButton.onclick = function () {
+        var settingsDialogWindow = document.getElementById("settingsDialogWindow");
+        settingsDialogWindow.style.display = "none";
+    };
+
 });
 
 // Adding a zero if the hour, minute or seconds number is below zero
@@ -245,4 +252,9 @@ function deleteAllNotifications() {
     amountNotificationsElement.innerText = notificationArray.length;
 }
 
+// Function for opening the settings dialog window
+function openSettingsDialog() {
+    var settingsDialogWindow = document.getElementById("settingsDialogWindow");
+    settingsDialogWindow.style.display = "block";
+}
 
