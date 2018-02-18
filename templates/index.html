@@ -7,17 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="{{ url_for('static', filename='socket.io.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
 </head>
 <body>
     <div id="settingsDialogWindow">
         <div class="dialogWindowContent">
             <button id="closeSettingsDialogWindow"><i class="fas fa-window-close"></i></button>
             <div class="clearfix"></div>
-            <h1>Currently, here is nothing. Please wait until a function will be released.</h1>
-            <p>Version: {{ version }}</p>
+            <ul class="settingsList">
+                <li class="settingsItem">
+                    <p class="notificationSettingsOption"><b>Enable notifications: </b>
+                        <label class="switch">
+                          <input type="checkbox" class="notificationCheckbox" >
+                          <span class="slider round"></span>
+                        </label>
+                    </p>
+                </li>
+            </ul>
+            <p class="settingsVersion">Version: {{ version }}</p>
         </div>
     </div>
     <button id="deleteAllNotifications" onclick="deleteAllNotifications()"><span id="amountNotifications">0</span><i class="fas fa-trash-alt"></i></button>
@@ -31,7 +41,7 @@
             <td>
                 <h2>The current price of one Bitcoin is: </h2>
                 <h1 id="bitcoinPrice" class="bitcoinPrice">{{ price }}</h1>
-                <p>Used API: <a href="{{ api }}">{{ api }}</a></p>
+                <p>Used API: <a target="_blank" href="{{ api }}">{{ api }}</a></p>
             </td>
         </tr>
     </table>

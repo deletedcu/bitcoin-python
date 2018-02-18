@@ -6,7 +6,7 @@
     <a href="https://discord.gg/ccpgH3b"><img src="https://discordapp.com/api/guilds/358751806697897984/embed.png" /></a>
     <a href="https://twitter.com/intent/user?screen_name=julianYaman"><img src="https://img.shields.io/twitter/follow/julianyaman.svg?style=social&label=Follow" /></a>
     <img src="https://img.shields.io/github/languages/code-size/julianYaman/bitcoinPriceApp_python.svg" alt="Code Size" />
-    <img src="https://img.shields.io/badge/master--version-2.4.3-brightgreen.svg" />
+    <img src="https://img.shields.io/badge/master--version-2.5.1-brightgreen.svg" />
     <a href="https://github.com/julianYaman/bitcoinPriceApp_python/"><img src="https://img.shields.io/github/release/julianYaman/bitcoinPriceApp_python.svg" /></a>
 </p>
 
@@ -58,6 +58,8 @@ At the moment, I use the **[BitPay API](https://bitpay.com/api/rates)** for gett
 
 ## Planned updates:
 
-- **Automatic price refresh every minute:** Every minute, the price should be updated.
+- **IN PROGRESS: Automatic price refresh every minute:** Every minute, the price should be updated.
+
+- **(Just for fun) SSL connection:** The user should have a safe connection to the server.
 
 - **Changing between exchanges:** The user should be able to switch to any exchange and set it to the main one so the user will only see his preferred exchange option.
