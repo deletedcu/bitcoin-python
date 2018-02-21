@@ -3,7 +3,7 @@ Flask-SocketIO==2.9.3
 pipenv==9.1.0
 requests==2.18.4
 Jinja2==2.10
-pytest==3.4.0
+pytest==3.4.1
 pytest-flask==0.10.0
 coverage==4.5.1
 eventlet
