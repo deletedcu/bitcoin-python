@@ -1,6 +1,6 @@
 Flask==0.12.2
-Flask-SocketIO==2.9.3
 pipenv==10.1.2
+Flask-SocketIO==2.9.4
 requests==2.18.4
 Jinja2==2.10
 pytest==3.4.1
