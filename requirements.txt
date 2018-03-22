@@ -1,5 +1,5 @@
 Flask==0.12.2
-pipenv==11.8.3
+pipenv==11.9.0
 Flask-SocketIO==2.9.6
 requests==2.18.4
 Jinja2==2.10
