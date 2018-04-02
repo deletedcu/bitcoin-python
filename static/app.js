@@ -152,11 +152,24 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
     socket.on('price_message', function (msg) {
+
+        // Changing the price on the page
         document.getElementById("bitcoinPrice").innerText = msg.price;
+
+        // Changing the price in the title of the page
+        document.title = "1 Bitcoin is worth " + msg.price;
+
+        // Logging successful socket response
         console.log(currentDate(new Date()) + ' Socket: Got successfully a (price) response! -> ' + msg.price);
+
+        // Sending a message to the server that the message was successfully sent to the user
         socket.emit('client_message', {data: currentDate(new Date()) + ' Got successfully the price response!'});
 
-        /* TODO: How to set the progress bar width when a client connects while the 60 sec loop is running on the server side. */
+        /*
+
+        TODO: How to set the progress bar width when a client connects while the 60 sec loop is running on the server side. (how?????)
+
+        */
 
         // Accessing the element which contains the progress bar
         var progressBar = document.getElementById("progressBarInner");

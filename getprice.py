@@ -12,8 +12,9 @@ from threading import Thread, Event, Lock
 
 # Variables
 
-VERSION = "2.4.4"
-CHANGELOG = VERSION + " - fix: requests issue with eventlet and monkey_patch"
+VERSION = "2.6.0"
+CHANGELOG = VERSION + " - new: Showing the price in the title\n" \
+                      + VERSION + " - new: Contribute button in the settings menu"
 
 async_mode = None
 
