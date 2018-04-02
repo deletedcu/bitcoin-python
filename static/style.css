@@ -164,6 +164,23 @@ body, html{
 .notificationSettingsOption{
     opacity: 1.0 !important;
 }
+
+
+.contributeButton{
+    padding: 7px;
+    background: #4b7bec;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14pt;
+    border-radius: 4px;
+    transition: 0.3s ease-in-out background;
+}
+.contributeButton:hover{
+    background: #3867d6;
+    transition: 0.3s ease-in-out background;
+}
+
 /* */
 
 /* Settings button down right */
@@ -217,9 +234,12 @@ h1.bitcoinPrice{
     font-weight: 900;
     margin: 0;
 }
-p{
+
+/* API Link */
+.apiLink{
     opacity: 0.3;
 }
+
 p a{
     color: white;
     font-weight: bold;

@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bitcoin Price {{ version }}</title>
+    <title>1 Bitcoin is worth {{ price }}</title>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='bitcoin-white.png') }}">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="{{ url_for('static', filename='socket.io.js') }}"></script>
@@ -26,6 +30,9 @@
                         </label>
                     </p>
                 </li>
+                <li class="settingsItem">
+                    <a href="https://github.com/julianYaman/bitcoinPriceApp_python" class="contributeButton" title="Referring to the repository" target="_blank">Contribute to this project</a>
+                </li>
             </ul>
             <p class="settingsVersion">Version: {{ version }}</p>
         </div>
@@ -41,7 +48,7 @@
             <td>
                 <h2>The current price of one Bitcoin is: </h2>
                 <h1 id="bitcoinPrice" class="bitcoinPrice">{{ price }}</h1>
-                <p>Used API: <a target="_blank" href="{{ api }}">{{ api }}</a></p>
+                <p class="apiLink">Used API: <a target="_blank" href="{{ api }}">{{ api }}</a></p>
             </td>
         </tr>
     </table>
