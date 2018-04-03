@@ -233,6 +233,7 @@ h1.bitcoinPrice{
     font-size: 160px;
     font-weight: 900;
     margin: 0;
+    text-shadow: 0 3px 4px rgba(0,0,0,.5);
 }
 
 /* API Link */

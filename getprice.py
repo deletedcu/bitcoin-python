@@ -16,6 +16,9 @@ VERSION = "2.6.0"
 CHANGELOG = VERSION + " - new: Showing the price in the title\n" \
                       + VERSION + " - new: Contribute button in the settings menu"
 
+# PORT
+PORT = 5000
+
 async_mode = None
 
 # You can use this if you are using Python 3.6 or newer.
@@ -31,14 +34,14 @@ socketio = SocketIO(app, async_mode=async_mode)
 # API URL of the API used in this project
 bitpay_url = "https://bitpay.com/api/rates"
 
-# data[2] is EUR
-# data[1] is USD
+# data[3] is EUR
+# data[2] is USD
 
 appstarted_bitpay_request = requests.get(bitpay_url)
 appstarted_bitpay_data = appstarted_bitpay_request.json()
 
-bitpay_EUR = appstarted_bitpay_data[2]
-bitpay_USD = appstarted_bitpay_data[1]
+bitpay_EUR = appstarted_bitpay_data[3]
+bitpay_USD = appstarted_bitpay_data[2]
 
 appstarted_bitpay_price = "{0:.2f} {1}".format(bitpay_EUR["rate"], bitpay_EUR["code"])
 
@@ -54,8 +57,8 @@ def background_thread():
         bitpaydata = requests.get(bitpay_url)
         bitpaydata = bitpaydata.json()
 
-        bitpay_EUR = bitpaydata[2]
-        bitpay_USD = bitpaydata[1]
+        bitpay_EUR = bitpaydata[3]
+        bitpay_USD = bitpaydata[2]
 
         bitpayprice = "{0:.2f} {1}".format(bitpay_EUR["rate"], bitpay_EUR["code"])
 
@@ -85,8 +88,8 @@ def rawoutput():
     bitpaydata = requests.get(bitpay_url)
     bitpaydata = bitpaydata.json()
 
-    bitpay_EUR = bitpaydata[2]
-    bitpay_USD = bitpaydata[1]
+    bitpay_EUR = bitpaydata[3]
+    bitpay_USD = bitpaydata[2]
 
     bitpayprice = "{0:.2f} {1}".format(bitpay_EUR["rate"], bitpay_EUR["code"])
 
@@ -140,37 +143,68 @@ def error_handler_price(e):
 
 
 def requestingexchanges():
+
+    # URIs of the other exchanges
     bitfinex_url = "https://api.bitfinex.com/v1/pubticker/btcusd"
     coinmarketcap_url = "https://api.coinmarketcap.com/v1/ticker/bitcoin/"
 
+    # Logging the start of the BitFinex request
     print("> Starting BitFinex Request")
+
+    # Getting the price from BitFinex
     bitfinex_request = requests.get(bitfinex_url)
     bitfinex_data = bitfinex_request.json()
     bitfinex_price = "{0:.2f}".format(float(bitfinex_data["high"]))
+
+    # Log if successful
     print("> BitFinex Request worked! ({0})\n".format(bitfinex_price))
 
+    # Logging the start of the BitPay request
     print("> Starting BitPay Request")
+
+    # Get the data from BitPay
     bitpay_request = requests.get(bitpay_url)
     bitpay_data = bitpay_request.json()
 
-    bitpay_EUR = bitpay_data[2]
-    bitpay_USD = bitpay_data[1]
+    # Creating variables for different currencies containing different data
+    bitpay_EUR = bitpay_data[3]
+    bitpay_USD = bitpay_data[2]
 
-    bitpay_price = "{0:.2f}".format(bitpay_EUR["rate"])
-    print("> BitPay Request worked! ({0})\n".format(bitpay_price))
+    # Log if successful
+    print("> BitPay Request worked! \n")
 
     print("> Starting CoinMarketCap Request")
     coinmarketcap_request = requests.get(coinmarketcap_url)
     coinmarketcap_data = coinmarketcap_request.json()
     coinmarketcap_price = "{0:.2f}".format(float(coinmarketcap_data[0]["price_usd"]))
+    # Log if successful
     print("> CoinMarketCap Request worked! ({0})\n\nAll requests worked fine!".format(coinmarketcap_price))
 
-    return jsonify(_code="USD",
-                   version=VERSION,
-                   bitfinex=bitfinex_price,
-                   bitpay=bitpay_price,
-                   coinmarketcap=coinmarketcap_price)
+    # Creating a variable with the final results
+    result = jsonify({
+        "bitfinex": {
+            "name": "BitFinex",
+            "url": bitfinex_url,
+            "currencyCode": "USD",
+            "price": bitfinex_price
+        },
+        "bitpay": {
+            "name": "BitPay",
+            "url": bitpay_url,
+            "USD": bitpay_USD,
+            "EUR": bitpay_EUR
+        },
+        "coinmarketcap": {
+            "name": "CoinMarketCap",
+            "url": coinmarketcap_url,
+            "currencyCode": "USD",
+            "price": coinmarketcap_price
+        }
+    })
+
+    # Returning the result
+    return result
 
 
 if __name__ == '__main__':
-    socketio.run(app, port=5000)
+    socketio.run(app, port=PORT)
