@@ -1,4 +1,4 @@
-Flask==0.12.2
+Flask==1.0.2
 pipenv==11.10.0
 Flask-SocketIO==2.9.6
 requests==2.18.4
