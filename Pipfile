@@ -1,19 +1,21 @@
 [[source]]
-url = "https://pypi.python.org/simple"
+url = 'https://pypi.python.org/simple'
 verify_ssl = true
-name = "pypi"
+name = 'pypi'
 
 [requires]
 platform = 'windows'
 
 [packages]
-Flask = "0.12.2"
-Flask-SocketIO = "2.9.3"
-pipenv = "9.0.1"
-requests = "2.18.4"
-"Jinja2" = "2.10"
-pytest-flask = "0.10.0"
-coverage = "4.4.2"
+Flask = '1.0.2'
+Flask-SocketIO = '3.0.1'
+pipenv = '2018.7.1'
+requests = '2.19.1'
+'Jinja2' = '2.10'
+pytest-flask = '0.11.0'
+pytest = '4.1.1'
+coverage = '4.5.1'
+eventlet = '0.24.1'
 
 
 [dev-packages]
